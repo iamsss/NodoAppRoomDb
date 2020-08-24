@@ -1,5 +1,6 @@
 package com.example.nodoapp.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -26,6 +27,6 @@ public interface NodoDao {
     @Update
     void update(Nodo nodo);
 
-    @Query("SELECT * FROM nodo_table")
-    List<Nodo> getAllNodos();
+    @Query("SELECT * FROM nodo_table ORDER BY nodo_col")
+    LiveData<List<Nodo>> getAllNodos();
 }
