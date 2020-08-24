@@ -21,11 +21,11 @@ public class NodoRepository {
         allNodos = nodoDao.getAllNodos();
     }
 
-    LiveData<List<Nodo>> getAllNodos(){
+    public LiveData<List<Nodo>> getAllNodos(){
         return  allNodos;
     }
 
-    void insert(Nodo nodo){
+    public void insert(Nodo nodo){
      new insertAsyncTask(nodoDao).execute(nodo);
     }
 
