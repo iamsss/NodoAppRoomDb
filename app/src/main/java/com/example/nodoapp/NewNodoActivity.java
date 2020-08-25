@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 
 public class NewNodoActivity extends AppCompatActivity {
 
-    private TextView editText;
+    private EditText editText;
 
 
     @Override
