@@ -39,7 +39,7 @@ public class NodoListAdapter extends RecyclerView.Adapter<NodoListAdapter.nodoVi
         }
     }
 
-    void setNodoList(List<Nodo> nodos){
+    public void setNodoList(List<Nodo> nodos){
         nodoList = nodos;
         notifyDataSetChanged();
     }

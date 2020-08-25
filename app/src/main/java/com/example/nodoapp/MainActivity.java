@@ -2,12 +2,17 @@ package com.example.nodoapp;
 
 import android.os.Bundle;
 
+import com.example.nodoapp.model.Nodo;
+import com.example.nodoapp.model.NodoViewModel;
 import com.example.nodoapp.ui.NodoListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +20,13 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private NodoListAdapter nodoListAdapter;
     private RecyclerView recyclerView;
+    private NodoViewModel nodoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        nodoViewModel = ViewModelProviders.of(this).get(NodoViewModel.class);
 
         recyclerView = findViewById(R.id.recyclerView);
         nodoListAdapter = new NodoListAdapter(this);
@@ -39,7 +49,16 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        nodoViewModel.getAllNodos().observe(this, new Observer<List<Nodo>>() {
+            @Override
+            public void onChanged(List<Nodo> nodos) {
+                //Update the Adapter List
+                nodoListAdapter.setNodoList(nodos);
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
